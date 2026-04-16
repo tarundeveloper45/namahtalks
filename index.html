@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NamahTalks — Conversations That Move the World</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* ── HOME HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 0;
+      padding: 9rem 6% 6rem;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute;
+      top: -20%; right: -10%; width: 650px; height: 650px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,99,26,0.18) 0%, transparent 70%);
+    }
+    .hero::after {
+      content: ''; position: absolute;
+      bottom: -15%; left: -5%; width: 400px; height: 400px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,99,26,0.08) 0%, transparent 70%);
+    }
+    .hero-left { position: relative; z-index: 1; padding-right: 3rem; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(232,99,26,0.15); color: var(--orange-light);
+      padding: 0.42rem 1rem; border-radius: 100px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 1.8rem;
+      border: 1px solid rgba(232,99,26,0.25);
+    }
+    .hero-badge::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); animation: blink 1.6s infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 6vw, 5.2rem);
+      line-height: 1.05; font-weight: 700;
+      letter-spacing: -0.03em; color: white; margin-bottom: 1.4rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--orange); }
+    .hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.55);
+      line-height: 1.75; max-width: 440px; margin-bottom: 2.5rem;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-bottom: 3.5rem; }
+    .hero-stats {
+      display: flex; gap: 2.5rem;
+      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 700; display: block; color: white;
+    }
+    .stat-num span { color: var(--orange); }
+    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.4); font-weight: 600; letter-spacing: 0.04em; margin-top: 0.2rem; }
+
+    /* Hero right — visual card stack */
+    .hero-right { position: relative; z-index: 1; }
+    .hero-card-main {
+      background: var(--dark2); border-radius: 2rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 2.5rem; position: relative; overflow: hidden;
+    }
+    .hero-card-main::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-deep));
+    }
+    .hc-label { font-size: 0.7rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1.2rem; }
+    .hc-ep-num { font-size: 0.72rem; color: rgba(255,255,255,0.35); margin-bottom: 0.4rem; }
+    .hc-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700; color: white; line-height: 1.3; margin-bottom: 0.7rem;
+    }
+    .hc-guest { font-size: 0.8rem; color: rgba(255,255,255,0.45); margin-bottom: 1.8rem; }
+    .hc-progress { background: rgba(255,255,255,0.1); border-radius: 100px; height: 4px; margin-bottom: 0.5rem; }
+    .hc-progress-bar { background: var(--orange); height: 4px; border-radius: 100px; width: 38%; }
+    .hc-time { display: flex; justify-content: space-between; font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-bottom: 1.5rem; }
+    .hc-controls { display: flex; align-items: center; gap: 1rem; }
+    .hc-play {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--orange); display: flex; align-items: center; justify-content: center;
+      cursor: pointer; flex-shrink: 0;
+    }
+    .hc-play svg { width: 16px; height: 16px; fill: white; margin-left: 2px; }
+    .hc-ctrl-btn { background: rgba(255,255,255,0.08); border: none; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .hc-ctrl-btn svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.5); }
+    .mini-cards { margin-top: 1.2rem; display: flex; flex-direction: column; gap: 0.7rem; }
+    .mini-card {
+      background: rgba(255,255,255,0.04); border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.07); padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: 1rem; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .mini-card:hover { background: rgba(255,255,255,0.08); }
+    .mini-thumb {
+      width: 40px; height: 40px; border-radius: 0.5rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .mini-thumb svg { width: 18px; height: 18px; fill: rgba(255,255,255,0.3); }
+    .mc-t1 { background: linear-gradient(135deg, #2C1A0D, #4A2E14); }
+    .mc-t2 { background: linear-gradient(135deg, #0D1A2C, #14294A); }
+    .mini-card-body { flex-grow: 1; min-width: 0; }
+    .mini-card-ep { font-size: 0.68rem; color: var(--orange); font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; }
+    .mini-card-title { font-size: 0.82rem; font-weight: 700; color: rgba(255,255,255,0.75); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mini-card-dur { font-size: 0.7rem; color: rgba(255,255,255,0.3); margin-top: 0.2rem; }
+    .mini-play { width: 28px; height: 28px; border-radius: 50%; background: rgba(232,99,26,0.2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .mini-play svg { width: 10px; height: 10px; fill: var(--orange); margin-left: 1px; }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: var(--off-white); padding: 6rem 6%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+    }
+    .about-visual {
+      border-radius: 2rem; overflow: hidden;
+      background: linear-gradient(135deg, var(--black) 0%, var(--dark2) 100%);
+      aspect-ratio: 4/5; position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-visual-placeholder { text-align: center; color: rgba(255,255,255,0.2); }
+    .about-visual-placeholder svg { width: 70px; height: 70px; fill: rgba(255,255,255,0.12); display: block; margin: 0 auto 0.8rem; }
+    .about-visual-placeholder p { font-size: 0.8rem; font-style: italic; }
+    .about-visual::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--orange), var(--orange-deep));
+    }
+    .about-body { font-size: 1rem; color: rgba(0,0,0,0.55); line-height: 1.8; margin: 1.2rem 0 2.2rem; }
+    .about-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .about-tag {
+      padding: 0.35rem 0.9rem; border-radius: 100px;
+      border: 1.5px solid var(--grey-light); font-size: 0.78rem; font-weight: 600;
+      color: rgba(0,0,0,0.5);
+    }
+
+    /* ── PODCAST PREVIEW ── */
+    .pod-section { padding: 6rem 6%; background: var(--white); }
+    .featured-pod {
+      background: var(--black); border-radius: 2rem; padding: 3rem;
+      display: grid; grid-template-columns: 280px 1fr; gap: 3rem;
+      align-items: center; margin-bottom: 2rem; overflow: hidden; position: relative;
+    }
+    .featured-pod::before {
+      content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40%;
+      background: radial-gradient(ellipse at 100% 50%, rgba(232,99,26,0.12) 0%, transparent 60%);
+    }
+    .fp-art {
+      border-radius: 1.5rem; aspect-ratio: 1; overflow: hidden;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-deep) 100%);
+      display: flex; align-items: center; justify-content: center; position: relative;
+    }
+    .fp-art svg { width: 60px; height: 60px; fill: rgba(255,255,255,0.15); }
+    .fp-ep-tag { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.7); padding: 0.3rem 0.8rem; border-radius: 100px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; display: inline-block; margin-bottom: 0.9rem; }
+    .fp-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.3rem, 2vw, 1.75rem); font-weight: 700;
+      color: white; line-height: 1.25; margin-bottom: 0.9rem; position: relative; z-index: 1;
+    }
+    .fp-desc { font-size: 0.9rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 1.8rem; position: relative; z-index: 1; }
+    .fp-actions { display: flex; gap: 1rem; position: relative; z-index: 1; }
+
+    .pod-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; }
+    .pod-card {
+      background: var(--white); border-radius: 1.4rem;
+      border: 1.5px solid var(--border); overflow: hidden;
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+    }
+    .pod-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); border-color: var(--orange); }
+    .pod-thumb {
+      aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .pod-thumb svg { width: 36px; height: 36px; fill: rgba(255,255,255,0.15); }
+    .pt1 { background: linear-gradient(135deg, #1A1714, #3A2B1A); }
+    .pt2 { background: linear-gradient(135deg, #0D1F33, #1A3A5F); }
+    .pt3 { background: linear-gradient(135deg, #1A2C0D, #2C4A14); }
+    .pod-play {
+      position: absolute; bottom: 0.8rem; right: 0.8rem;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: var(--orange); display: flex; align-items: center; justify-content: center;
+      transition: transform 0.2s;
+    }
+    .pod-card:hover .pod-play { transform: scale(1.1); }
+    .pod-play svg { width: 13px; height: 13px; fill: white; margin-left: 2px; }
+    .pod-body { padding: 1.2rem 1.3rem 1.5rem; }
+    .pod-ep { font-size: 0.68rem; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+    .pod-title { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.5rem; }
+    .pod-meta { font-size: 0.76rem; color: var(--grey); display: flex; gap: 0.8rem; }
+    .pod-meta span::before { content: '·'; margin-right: 0.8rem; }
+    .pod-meta span:first-child::before { content: none; }
+
+    /* ── BLOG PREVIEW ── */
+    .blog-section { padding: 6rem 6%; background: var(--off-white); }
+    .blog-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.5rem; }
+    .blog-hero-card {
+      background: white; border-radius: 1.5rem; overflow: hidden;
+      border: 1.5px solid var(--border); cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .blog-hero-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+    .blog-hero-img {
+      aspect-ratio: 16/9; background: linear-gradient(135deg, #1A1714 0%, #3A2B1A 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blog-hero-img svg { width: 48px; height: 48px; fill: rgba(255,255,255,0.1); }
+    .blog-hero-body { padding: 1.8rem; }
+    .blog-hero-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; line-height: 1.3; margin: 0.8rem 0; }
+    .blog-hero-excerpt { font-size: 0.88rem; color: var(--grey); line-height: 1.7; margin-bottom: 1.2rem; }
+    .blog-meta-row { display: flex; align-items: center; gap: 0.8rem; }
+    .b-avatar { width: 32px; height: 32px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 800; color: white; flex-shrink: 0; }
+    .b-name { font-size: 0.82rem; font-weight: 700; }
+    .b-date { font-size: 0.76rem; color: var(--grey); }
+    .blog-list { display: flex; flex-direction: column; gap: 1rem; }
+    .blog-mini {
+      background: white; border-radius: 1.2rem; padding: 1.2rem;
+      border: 1.5px solid var(--border); display: flex; gap: 1rem; align-items: flex-start;
+      cursor: pointer; transition: all 0.2s;
+    }
+    .blog-mini:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-color: var(--orange); transform: translateX(3px); }
+    .blog-mini-thumb {
+      width: 72px; height: 72px; border-radius: 0.75rem; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .blog-mini-thumb svg { width: 24px; height: 24px; fill: rgba(255,255,255,0.2); }
+    .bmt1 { background: linear-gradient(135deg, #0D1F33, #1A3A5F); }
+    .bmt2 { background: linear-gradient(135deg, #1A0D2C, #2C1A4A); }
+    .bmt3 { background: linear-gradient(135deg, #1A1A0D, #33330D); }
+    .bmt4 { background: linear-gradient(135deg, #2C0D0D, #4A1A1A); }
+    .blog-mini-title { font-family: 'Playfair Display', serif; font-size: 0.92rem; font-weight: 700; line-height: 1.35; margin-bottom: 0.35rem; }
+    .blog-mini-meta { font-size: 0.73rem; color: var(--grey); }
+
+    /* ── PLATFORMS ── */
+    .platforms { padding: 5rem 6%; background: var(--black); text-align: center; }
+    .pl-sub { font-size: 0.95rem; color: rgba(255,255,255,0.45); max-width: 440px; margin: 0.8rem auto 3rem; line-height: 1.7; }
+    .pl-grid { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .pl-pill {
+      display: flex; align-items: center; gap: 0.7rem;
+      padding: 0.85rem 1.6rem; border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.04);
+      font-size: 0.88rem; font-weight: 600;
+      text-decoration: none; color: rgba(255,255,255,0.65);
+      transition: all 0.22s;
+    }
+    .pl-pill:hover { border-color: var(--orange); background: rgba(232,99,26,0.12); color: white; }
+    .pl-pill svg { width: 20px; height: 20px; fill: currentColor; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-bottom: 4rem; }
+      .hero-right { display: none; }
+      .about-strip { grid-template-columns: 1fr; gap: 3rem; }
+      .about-visual { display: none; }
+      .featured-pod { grid-template-columns: 1fr; }
+      .pod-grid { grid-template-columns: 1fr 1fr; }
+      .blog-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .pod-grid { grid-template-columns: 1fr; }
+      .hero-stats { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nt-nav" id="nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="white" stroke-width="2" fill="none"/></svg>
+    </div>
+    <span class="nav-brand-name">NamahTalks</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="podcast.html">Podcast</a></li>
+    <li><a href="blog.html">Blog</a></li>
+    <li><a href="about.html">About</a></li>
+  </ul>
+  <a href="about.html#guest" class="nav-cta">Be a Guest</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge">Podcast &amp; Blog</div>
+    <h1>Conversations<br>That <em>Move</em><br>the World</h1>
+    <p class="hero-sub">Deep, honest conversations with founders, thinkers, and creators. Ideas that challenge, inspire, and change how you see everything.</p>
+    <div class="hero-actions">
+      <a href="podcast.html" class="btn-orange">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        Listen Now
+      </a>
+      <a href="blog.html" class="btn-outline">Read Blog</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <span class="stat-num">200<span>+</span></span>
+        <div class="stat-label">Episodes</div>
+      </div>
+      <div>
+        <span class="stat-num">2<span>M+</span></span>
+        <div class="stat-label">Listeners</div>
+      </div>
+      <div>
+        <span class="stat-num">150<span>+</span></span>
+        <div class="stat-label">Blog Posts</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-card-main">
+      <div class="hc-label">▶ Now Playing</div>
+      <div class="hc-ep-num">Episode 204</div>
+      <div class="hc-title">Why Discomfort Is The Price of Meaning</div>
+      <div class="hc-guest">with Arjun Sharma — Author & Philosopher</div>
+      <div class="hc-progress"><div class="hc-progress-bar"></div></div>
+      <div class="hc-time"><span>22:14</span><span>58:40</span></div>
+      <div class="hc-controls">
+        <button class="hc-ctrl-btn"><svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg></button>
+        <div class="hc-play"><svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></div>
+        <button class="hc-ctrl-btn"><svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg></button>
+      </div>
+      <div class="mini-cards">
+        <div class="mini-card">
+          <div class="mini-thumb mc-t1"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3zm-1 13V8l6 4-6 4z"/></svg></div>
+          <div class="mini-card-body">
+            <div class="mini-card-ep">Ep. 203</div>
+            <div class="mini-card-title">Building Without Burning Out</div>
+            <div class="mini-card-dur">52 min</div>
+          </div>
+          <div class="mini-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="mini-card">
+          <div class="mini-thumb mc-t2"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3zm-1 13V8l6 4-6 4z"/></svg></div>
+          <div class="mini-card-body">
+            <div class="mini-card-ep">Ep. 202</div>
+            <div class="mini-card-title">The Monk Who Sold His App</div>
+            <div class="mini-card-dur">44 min</div>
+          </div>
+          <div class="mini-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<section class="about-strip">
+  <div class="about-visual">
+    <div class="about-visual-placeholder">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+      <p>Replace with your photo</p>
+    </div>
+  </div>
+  <div>
+    <span class="section-tag">About the Host</span>
+    <h2 class="section-title">Namah — <em style="font-style:italic;color:var(--orange);">Seeker,<br>Speaker, Storyteller</em></h2>
+    <p class="about-body">I believe in the power of a good conversation to change everything. Namah Talks is a space where ideas collide, boundaries dissolve, and every guest brings something that shifts your perspective. From boardrooms to dharmshalas — every voice matters here.</p>
+    <div class="about-tags">
+      <span class="about-tag">Entrepreneurship</span>
+      <span class="about-tag">Philosophy</span>
+      <span class="about-tag">Mental Health</span>
+      <span class="about-tag">Creativity</span>
+    </div>
+    <a href="about.html" class="btn-black">Read My Story</a>
+  </div>
+</section>
+
+<!-- PODCAST PREVIEW -->
+<section class="pod-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <span class="section-tag">Podcast</span>
+        <h2 class="section-title">Talks That<br>Stay With You</h2>
+      </div>
+      <a href="podcast.html" class="view-all-link">All Episodes →</a>
+    </div>
+    <div class="featured-pod">
+      <div class="fp-art">
+        <svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3zm-1 13V8l6 4-6 4z"/></svg>
+      </div>
+      <div>
+        <span class="fp-ep-tag">⭐ Featured · Ep. 204</span>
+        <h3 class="fp-title">Why Discomfort Is The Price Of Meaning</h3>
+        <p class="fp-desc">A raw conversation about why the most fulfilling lives are often the hardest, and how to find clarity in the chaos of living fully.</p>
+        <div class="fp-actions">
+          <a href="https://www.youtube.com/watch?v=2QC77ziFnGA" target="_blank" class="btn-orange"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>Watch on YouTube</a>
+          <a href="podcast.html" class="btn-outline">All Episodes</a>
+        </div>
+      </div>
+    </div>
+    <div class="pod-grid">
+      <div class="pod-card" onclick="window.open('https://www.youtube.com/watch?v=2QC77ziFnGA','_blank')" style="cursor:pointer;">
+        <div class="pod-thumb" style="position:relative;overflow:hidden;aspect-ratio:16/9;background:#000;">
+          <img src="https://img.youtube.com/vi/2QC77ziFnGA/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Episode 1"/>
+          <div class="pod-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="pod-body">
+          <div class="pod-ep">Episode 01 · YouTube</div>
+          <div class="pod-title">NamahTalks — Episode 1</div>
+          <div class="pod-meta"><span>Namah</span><span>Watch Now</span></div>
+        </div>
+      </div>
+      <div class="pod-card" onclick="window.open('https://www.youtube.com/watch?v=Ol-Icqbmg_o','_blank')" style="cursor:pointer;">
+        <div class="pod-thumb" style="position:relative;overflow:hidden;aspect-ratio:16/9;background:#000;">
+          <img src="https://img.youtube.com/vi/Ol-Icqbmg_o/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Episode 2"/>
+          <div class="pod-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="pod-body">
+          <div class="pod-ep">Episode 02 · YouTube</div>
+          <div class="pod-title">NamahTalks — Episode 2</div>
+          <div class="pod-meta"><span>Namah</span><span>Watch Now</span></div>
+        </div>
+      </div>
+      <div class="pod-card" onclick="window.open('https://www.youtube.com/watch?v=fSKlIblwH-Q','_blank')" style="cursor:pointer;">
+        <div class="pod-thumb" style="position:relative;overflow:hidden;aspect-ratio:16/9;background:#000;">
+          <img src="https://img.youtube.com/vi/fSKlIblwH-Q/hqdefault.jpg" style="width:100%;height:100%;object-fit:cover;" alt="Episode 3"/>
+          <div class="pod-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        </div>
+        <div class="pod-body">
+          <div class="pod-ep">Episode 03 · YouTube</div>
+          <div class="pod-title">NamahTalks — Episode 3</div>
+          <div class="pod-meta"><span>Namah</span><span>Watch Now</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG PREVIEW -->
+<section class="blog-section">
+  <div class="section-wrap">
+    <div class="section-header">
+      <div>
+        <span class="section-tag">Blog</span>
+        <h2 class="section-title">Ideas Written<br>For You</h2>
+      </div>
+      <a href="blog.html" class="view-all-link">All Articles →</a>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-hero-card" onclick="location.href='posts/founder-stuck.html'" style="cursor:pointer">
+        <div class="blog-hero-img"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div class="blog-hero-body">
+          <span class="cat-pill">Philosophy</span>
+          <div class="blog-hero-title">Why Saying 'I Don't Know' Is the Most Powerful Thing You Can Do</div>
+          <div class="blog-hero-excerpt">In a world obsessed with confident takes and hot opinions, intellectual humility might just be the rarest superpower left.</div>
+          <div class="blog-meta-row">
+            <div class="b-avatar">N</div>
+            <div><div class="b-name">Namah</div><div class="b-date">April 10, 2025 · 8 min read</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="blog-list">
+        <div class="blog-mini">
+          <div class="blog-mini-thumb bmt1"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+          <div><div class="blog-mini-title">The Attention Economy Is Stealing Your Life</div><div class="blog-mini-meta">Productivity · 6 min read</div></div>
+        </div>
+        <div class="blog-mini">
+          <div class="blog-mini-thumb bmt2"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+          <div><div class="blog-mini-title">How to Build a ₹0 Personal Brand</div><div class="blog-mini-meta">Entrepreneurship · 10 min read</div></div>
+        </div>
+        <div class="blog-mini">
+          <div class="blog-mini-thumb bmt3"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+          <div><div class="blog-mini-title">5 Books That Rewired How I Think About Success</div><div class="blog-mini-meta">Reading · 5 min read</div></div>
+        </div>
+        <div class="blog-mini">
+          <div class="blog-mini-thumb bmt4"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+          <div><div class="blog-mini-title">Slow Down to Speed Up: The Paradox of Peak Performance</div><div class="blog-mini-meta">Wellness · 7 min read</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+<section class="platforms">
+  <div class="section-wrap">
+    <span class="section-tag" style="display:block;text-align:center;color:var(--orange);">Listen Everywhere</span>
+    <h2 class="section-title" style="text-align:center;color:white;margin-top:0.4rem;">Available On Your<br>Favourite App</h2>
+    <p class="pl-sub">Subscribe and never miss a conversation. New episode every Tuesday.</p>
+    <div class="pl-grid">
+      <a href="#" class="pl-pill"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>Spotify</a>
+      <a href="#" class="pl-pill"><svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>Apple Podcasts</a>
+      <a href="#" class="pl-pill"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>YouTube</a>
+      <a href="#" class="pl-pill"><svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.93 13.59l-2.965-.924c-.644-.204-.657-.644.136-.953l11.57-4.461c.537-.194 1.006.131.223.969z"/></svg>Telegram</a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-strip">
+  <div class="nl-left">
+    <div class="nl-kicker">Stay in the loop</div>
+    <h3>Never Miss a<br>Good Conversation</h3>
+    <p>New episodes, blog posts, and exclusive insights — straight to your inbox. No spam, ever.</p>
+  </div>
+  <div class="nl-form">
+    <input type="email" placeholder="your@email.com"/>
+    <button type="button">Subscribe Free →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="nt-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo">Namah<span>.</span>Talks</a>
+      <p class="footer-desc">Deep conversations with the people reshaping how we think, work, and live.</p>
+      <div class="footer-socials">
+        <a href="#" class="footer-social"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+        <a href="#" class="footer-social"><svg viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.54 3.5 12 3.5 12 3.5s-7.54 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.04 0 12 0 12s0 3.96.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.46 20.5 12 20.5 12 20.5s7.54 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.96 24 12 24 12s0-3.96-.5-5.81zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg></a>
+        <a href="#" class="footer-social"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+        <a href="#" class="footer-social"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Explore</div>
+      <ul><li><a href="podcast.html">All Episodes</a></li><li><a href="blog.html">Blog</a></li><li><a href="about.html">About</a></li><li><a href="#">Newsletter</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Topics</div>
+      <ul><li><a href="podcast.html">Entrepreneurship</a></li><li><a href="podcast.html">Philosophy</a></li><li><a href="podcast.html">Mental Health</a></li><li><a href="podcast.html">Creativity</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Connect</div>
+      <ul><li><a href="about.html#guest">Be a Guest</a></li><li><a href="about.html">Collaborate</a></li><li><a href="about.html">Sponsorships</a></li><li><a href="about.html">Contact</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Namah Talks. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem;"><a href="#">Privacy Policy</a><a href="#">Terms of Use</a></div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+
+<script>
+document.querySelectorAll('.blog-mini').forEach((card, i) => {
+    const urls = ['posts/attention-economy.html','posts/personal-brand.html','posts/5-books-success.html','posts/slow-down-speed-up.html'];
+    if (urls[i]) { card.style.cursor='pointer'; card.addEventListener('click', () => location.href=urls[i]); }
+});
+document.querySelectorAll('.pod-card').forEach((card, i) => {
+    card.style.cursor='pointer';
+    card.addEventListener('click', () => location.href='podcast.html');
+});
+</script>
+</body>
+</html>

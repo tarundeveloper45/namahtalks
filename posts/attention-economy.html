@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Attention Economy Is Quietly Stealing Your Life — NamahTalks</title>
+  <link rel="stylesheet" href="../style.css"/>
+  <style>
+    body { background: var(--white); }
+
+    /* ── ARTICLE HERO ── */
+    .article-hero {
+      background: var(--black);
+      padding: 9rem 6% 5rem;
+      position: relative; overflow: hidden;
+    }
+    .article-hero::before {
+      content: ''; position: absolute;
+      top: -20%; right: -10%; width: 550px; height: 550px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,99,26,0.15) 0%, transparent 65%);
+    }
+    .hero-inner { max-width: 820px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.78rem; color: rgba(255,255,255,0.4);
+      margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--orange); }
+    .breadcrumb span { color: rgba(255,255,255,0.2); }
+    .breadcrumb .current { color: rgba(255,255,255,0.6); }
+
+    .art-category {
+      display: inline-block; background: rgba(232,99,26,0.2);
+      color: var(--orange-light); padding: 0.38rem 1rem;
+      border-radius: 100px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.09em; text-transform: uppercase;
+      border: 1px solid rgba(232,99,26,0.3); margin-bottom: 1.5rem;
+    }
+    .art-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      line-height: 1.08; font-weight: 700;
+      letter-spacing: -0.03em; color: white; margin-bottom: 1.2rem;
+    }
+    .art-subtitle {
+      font-size: 1.1rem; color: rgba(255,255,255,0.55);
+      line-height: 1.7; margin-bottom: 2.2rem;
+    }
+    .art-meta-row {
+      display: flex; align-items: center; gap: 1.5rem;
+      padding-top: 1.8rem; border-top: 1px solid rgba(255,255,255,0.1);
+      flex-wrap: wrap;
+    }
+    .art-author { display: flex; align-items: center; gap: 0.75rem; }
+    .art-av {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--orange-deep));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 800; color: white; flex-shrink: 0;
+    }
+    .art-av-name { font-size: 0.88rem; font-weight: 700; color: white; }
+    .art-av-role { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+    .art-info { display: flex; gap: 1.5rem; font-size: 0.78rem; color: rgba(255,255,255,0.4); }
+    .art-info span { display: flex; align-items: center; gap: 0.35rem; }
+    .art-info svg { width: 13px; height: 13px; fill: rgba(255,255,255,0.35); }
+
+    /* ── COVER IMAGE ── */
+    .cover-image {
+      background: linear-gradient(135deg, #1A1714 0%, #2C1A0D 50%, #3A2B1A 100%);
+      height: 420px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .cover-image::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(232,99,26,0.18) 0%, transparent 60%);
+    }
+    .cover-image svg { width: 100px; height: 100px; fill: rgba(255,255,255,0.06); position: relative; z-index: 1; }
+    .cover-image-caption {
+      position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%);
+      font-size: 0.75rem; color: rgba(255,255,255,0.3); white-space: nowrap;
+    }
+
+    /* ── ARTICLE LAYOUT ── */
+    .article-layout {
+      display: grid; grid-template-columns: 1fr 300px;
+      gap: 5rem; max-width: 1120px; margin: 0 auto;
+      padding: 5rem 6%;
+    }
+
+    /* ── ARTICLE BODY ── */
+    .article-body {}
+    .article-body h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem); font-weight: 700;
+      line-height: 1.2; margin: 2.8rem 0 1.2rem; color: var(--black);
+    }
+    .article-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; font-weight: 700;
+      margin: 2rem 0 0.9rem; color: var(--black);
+    }
+    .article-body p {
+      font-size: 1.05rem; line-height: 1.9;
+      color: rgba(0,0,0,0.7); margin-bottom: 1.5rem;
+    }
+    .article-body p:first-of-type { font-size: 1.1rem; color: rgba(0,0,0,0.8); }
+    .article-body strong { color: var(--black); font-weight: 700; }
+    .article-body em { font-style: italic; }
+    .article-body ul, .article-body ol {
+      margin: 1.2rem 0 1.5rem 1.5rem; display: flex; flex-direction: column; gap: 0.7rem;
+    }
+    .article-body li { font-size: 1.02rem; line-height: 1.75; color: rgba(0,0,0,0.7); }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 4px solid var(--orange);
+      padding: 1.5rem 2rem; margin: 2.5rem 0;
+      background: var(--off-white); border-radius: 0 1rem 1rem 0;
+    }
+    .pull-quote p {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem !important; line-height: 1.6 !important;
+      color: var(--black) !important; margin: 0 !important;
+      font-style: italic;
+    }
+
+    /* Key takeaway box */
+    .key-box {
+      background: var(--black); border-radius: 1.5rem; padding: 2rem 2.2rem;
+      margin: 2.5rem 0;
+    }
+    .key-box-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    .key-box ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+    .key-box li { font-size: 0.92rem; color: rgba(255,255,255,0.75); line-height: 1.6; padding-left: 1.2rem; position: relative; }
+    .key-box li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+
+    /* Divider */
+    .art-divider { height: 1px; background: var(--border); margin: 2.5rem 0; }
+
+    /* Tags */
+    .art-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .art-tag { padding: 0.38rem 0.9rem; border-radius: 100px; border: 1.5px solid var(--border); font-size: 0.78rem; font-weight: 600; color: var(--grey); text-decoration: none; transition: all 0.2s; }
+    .art-tag:hover { border-color: var(--black); color: var(--black); }
+
+    /* Share row */
+    .share-row { display: flex; align-items: center; gap: 1rem; margin-top: 2rem; padding: 1.5rem; background: var(--off-white); border-radius: 1rem; }
+    .share-label { font-size: 0.8rem; font-weight: 700; color: var(--black); }
+    .share-btn { width: 36px; height: 36px; border-radius: 50%; background: white; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+    .share-btn:hover { border-color: var(--black); background: var(--black); }
+    .share-btn svg { width: 15px; height: 15px; fill: var(--grey); }
+    .share-btn:hover svg { fill: white; }
+
+    /* ── SIDEBAR ── */
+    .sidebar { position: sticky; top: 7rem; align-self: start; }
+    .sidebar-toc { background: var(--off-white); border-radius: 1.5rem; padding: 1.8rem; margin-bottom: 1.5rem; border: 1.5px solid var(--border); }
+    .toc-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.2rem; }
+    .toc-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .toc-list a { font-size: 0.85rem; color: var(--grey); text-decoration: none; transition: color 0.2s; display: flex; align-items: flex-start; gap: 0.5rem; line-height: 1.4; }
+    .toc-list a::before { content: '·'; color: var(--orange); font-size: 1.2rem; line-height: 1; flex-shrink: 0; }
+    .toc-list a:hover { color: var(--black); }
+
+    .sidebar-author { background: var(--black); border-radius: 1.5rem; padding: 1.8rem; margin-bottom: 1.5rem; }
+    .sa-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.2rem; }
+    .sa-row { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem; }
+    .sa-av { width: 48px; height: 48px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--orange-deep)); display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 800; color: white; flex-shrink: 0; }
+    .sa-name { font-size: 0.92rem; font-weight: 700; color: white; }
+    .sa-role { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+    .sa-bio { font-size: 0.83rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+    .sidebar-related { background: var(--off-white); border-radius: 1.5rem; padding: 1.8rem; border: 1.5px solid var(--border); }
+    .sr-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 1.2rem; }
+    .related-item { display: flex; gap: 0.8rem; align-items: flex-start; padding: 0.8rem 0; border-bottom: 1px solid var(--border); cursor: pointer; text-decoration: none; }
+    .related-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .ri-thumb { width: 52px; height: 52px; border-radius: 0.6rem; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .ri-thumb svg { width: 20px; height: 20px; fill: rgba(255,255,255,0.2); }
+    .ri-t1 { background: linear-gradient(135deg,#0D1F33,#1A3A5F); }
+    .ri-t2 { background: linear-gradient(135deg,#1A2C0D,#2C4A14); }
+    .ri-t3 { background: linear-gradient(135deg,#2C1A3A,#4A2C5F); }
+    .ri-title { font-family: 'Playfair Display', serif; font-size: 0.82rem; font-weight: 700; color: var(--black); line-height: 1.35; margin-bottom: 0.25rem; transition: color 0.2s; }
+    .related-item:hover .ri-title { color: var(--orange); }
+    .ri-meta { font-size: 0.7rem; color: var(--grey); }
+
+    /* ── RELATED POSTS ── */
+    .related-section { padding: 5rem 6%; background: var(--off-white); border-top: 1.5px solid var(--border); }
+    .related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.4rem; margin-top: 2.5rem; }
+    .rel-card { background: white; border-radius: 1.4rem; border: 1.5px solid var(--border); overflow: hidden; cursor: pointer; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; text-decoration: none; display: block; }
+    .rel-card:hover { transform: translateY(-4px); box-shadow: 0 18px 50px rgba(0,0,0,0.09); border-color: var(--black); }
+    .rel-thumb { aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
+    .rel-thumb svg { width: 32px; height: 32px; fill: rgba(255,255,255,0.12); }
+    .rc1{background:linear-gradient(135deg,#0D1F33,#1A3A5F)} .rc2{background:linear-gradient(135deg,#1A2C0D,#2C4A14)} .rc3{background:linear-gradient(135deg,#2C1A3A,#4A2C5F)}
+    .rel-body { padding: 1.3rem 1.4rem 1.6rem; }
+    .rel-cat { display: inline-block; background: var(--off-white); color: var(--grey); padding: 0.25rem 0.7rem; border-radius: 100px; font-size: 0.67rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid var(--border); margin-bottom: 0.7rem; }
+    .rel-title { font-family: 'Playfair Display', serif; font-size: 0.98rem; font-weight: 700; line-height: 1.35; color: var(--black); margin-bottom: 0.5rem; }
+    .rel-meta { font-size: 0.73rem; color: var(--grey); }
+
+    @media(max-width:900px){
+      .article-layout { grid-template-columns: 1fr; gap: 3rem; }
+      .sidebar { position: static; }
+      .related-grid { grid-template-columns: 1fr 1fr; }
+      .cover-image { height: 260px; }
+    }
+    @media(max-width:600px){
+      .related-grid { grid-template-columns: 1fr; }
+      .art-info { flex-wrap: wrap; gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nt-nav" id="nav">
+  <a href="../index.html" class="nav-brand">
+    <div class="nav-brand-icon"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="white" stroke-width="2" fill="none"/></svg></div>
+    <span class="nav-brand-name">NamahTalks</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="../podcast.html">Podcast</a></li>
+    <li><a href="../blog.html" class="active">Blog</a></li>
+    <li><a href="../about.html">About</a></li>
+  </ul>
+  <a href="../about.html#guest" class="nav-cta">Be a Guest</a>
+</nav>
+
+<!-- ARTICLE HERO -->
+<section class="article-hero">
+  <div class="hero-inner">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a>
+      <span>›</span>
+      <a href="../blog.html">Blog</a>
+      <span>›</span>
+      <span class="current">Productivity</span>
+    </div>
+    <span class="art-category">Productivity</span>
+    <h1 class="art-title">The Attention Economy Is Quietly Stealing Your Life</h1>
+    <p class="art-subtitle">Every notification is a tiny ransom note. Every scroll is a second you'll never get back. Here's how to reclaim the most valuable resource you have.</p>
+    <div class="art-meta-row">
+      <div class="art-author">
+        <div class="art-av">N</div>
+        <div>
+          <div class="art-av-name">Namah</div>
+          <div class="art-av-role">Host &amp; Writer, NamahTalks</div>
+        </div>
+      </div>
+      <div class="art-info">
+        <span><svg viewBox="0 0 24 24"><path d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"/></svg>March 28, 2025</span>
+        <span><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm.5 5H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>6 min read</span>
+        <span><svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>4.2K views</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COVER IMAGE -->
+<div class="cover-image">
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+  <div class="cover-image-caption">Replace this with your article image</div>
+</div>
+
+<!-- ARTICLE LAYOUT -->
+<div class="article-layout">
+
+  <!-- MAIN CONTENT -->
+  <article class="article-body">
+
+    <p>There is a war being waged for your attention. And you are losing.</p>
+
+    <p>Not because you're weak or undisciplined. But because you are up against some of the smartest engineers and behavioural psychologists on the planet, armed with billions of dollars, whose entire job is to make sure you cannot stop scrolling.</p>
+
+    <p>The attention economy — the system in which your eyeballs are the product, and your time is the currency — is the defining business model of our era. And most of us have sleepwalked into being its raw material.</p>
+
+    <h2>What the Attention Economy Actually Is</h2>
+
+    <p>The term was popularised by psychologist and Nobel laureate Herbert Simon in 1971. He observed that "a wealth of information creates a poverty of attention." That was before smartphones. Before social media. Before the infinite scroll.</p>
+
+    <p>Today, the attention economy is a $600 billion industry built on one simple principle: <strong>your attention can be bought and sold</strong>. Platforms don't charge you money. They charge you something far more precious — your time, your focus, and ultimately, your life.</p>
+
+    <div class="pull-quote">
+      <p>"Every hour you spend consuming content someone else made is an hour you didn't spend building something of your own."</p>
+    </div>
+
+    <p>The average person checks their phone 96 times a day. That's once every 10 minutes. Every single check is a decision — conscious or not — to hand over a fragment of your attention to a corporation whose incentive is to keep you engaged, not to make you better.</p>
+
+    <h2>The Mechanics of the Trap</h2>
+
+    <p>Understanding how the trap works is the first step to escaping it. These platforms are not accidents. They are precisely engineered systems of behavioural manipulation:</p>
+
+    <ul>
+      <li><strong>Variable reward loops</strong> — the same mechanism that makes slot machines addictive. You never know if the next scroll will bring something amazing or mundane. The unpredictability keeps you pulling the lever.</li>
+      <li><strong>Social validation metrics</strong> — likes, comments, and shares tap into our deepest evolutionary need for belonging and status. Each notification is a dopamine hit.</li>
+      <li><strong>Infinite scroll</strong> — deliberately designed to remove natural stopping points. There is no end. There is no "done." The feed goes forever.</li>
+      <li><strong>Autoplay</strong> — the next video starts before you've decided you want to watch it. Friction is the enemy of engagement, and they've removed every last bit of it.</li>
+    </ul>
+
+    <h2>What It's Actually Costing You</h2>
+
+    <p>Let's do some honest math. If you spend 3 hours a day on social media — a conservative estimate, given that the average is closer to 6 — that's 1,095 hours a year. That's 45 entire days. Over a decade, that's 450 days. More than a year of your waking life, handed to an algorithm.</p>
+
+    <p>But the cost isn't just time. It's depth. Sustained, focused attention is the prerequisite for everything meaningful — deep work, genuine relationships, creative breakthroughs, self-knowledge. And we've trained ourselves out of it.</p>
+
+    <div class="key-box">
+      <div class="key-box-title">What Distraction Is Costing You</div>
+      <ul>
+        <li>Deep work — the ability to concentrate without distraction on cognitively demanding tasks</li>
+        <li>Boredom — the fertile mental state where creativity, insight, and genuine rest happen</li>
+        <li>Presence — the ability to be fully in a conversation, a meal, a moment</li>
+        <li>Self-awareness — the quiet that allows you to hear your own thoughts and feelings</li>
+        <li>Memory formation — distraction prevents experiences from consolidating into lasting memories</li>
+      </ul>
+    </div>
+
+    <h2>The Way Out</h2>
+
+    <p>I'm not going to tell you to delete Instagram. That's rarely sustainable, and for many people it's genuinely useful. What I will tell you is this: <strong>the goal is intentionality, not abstinence.</strong></p>
+
+    <p>Here's what has actually worked for me and for the founders, psychologists, and philosophers I've talked to on this show:</p>
+
+    <h3>1. Create Friction</h3>
+    <p>Log out of apps after every use. Delete them from your home screen. Put your phone in another room when you sleep. Make the default option "not using it." The fewer automatic behaviours you have, the more conscious choices you get to make.</p>
+
+    <h3>2. Protect the First Hour</h3>
+    <p>Your first hour of the day is your most cognitively powerful. It's when your willpower is freshest and your mind is least cluttered. Don't hand it to a feed. Use it for the things that actually matter to you — writing, thinking, moving your body, talking to someone you love.</p>
+
+    <h3>3. Replace, Don't Just Remove</h3>
+    <p>Attention is like water — it flows wherever it can. If you remove a habit without replacing it, it floods back. Replace mindless scrolling with something that feeds you: a book, a walk, a conversation, a creative practice. Make the alternative so good that the scroll feels like the inferior option.</p>
+
+    <h3>4. Audit Your Apps Honestly</h3>
+    <p>Look at your screen time data. Don't look away. Then ask yourself: is this how I would choose to spend my time if I were being fully intentional? For most of us, the answer is a humbling no.</p>
+
+    <div class="pull-quote">
+      <p>"Attention is the rarest and purest form of generosity." — Simone Weil</p>
+    </div>
+
+    <h2>The Deeper Truth</h2>
+
+    <p>Here's what nobody in Silicon Valley wants you to understand: <strong>boredom is not the enemy. It's the answer.</strong></p>
+
+    <p>In the moments when your brain is not being stimulated by external input, it shifts into what neuroscientists call the default mode network — a state associated with creativity, self-reflection, empathy, and the integration of experience into memory and identity. You need to be bored. You need silence. You need to sit with your own thoughts long enough to know what they actually are.</p>
+
+    <p>The attention economy has convinced us that emptiness is a problem to be filled. But the most interesting, productive, and at peace people I know have made their peace with emptiness. They've learned to sit in a room alone with their thoughts. And in that room, they do the work that actually matters.</p>
+
+    <p>You have one life. You have a finite number of hours of attention. Choose, deliberately, where it goes.</p>
+
+    <div class="art-divider"></div>
+
+    <div class="art-tags">
+      <a href="../blog.html" class="art-tag">Productivity</a>
+      <a href="../blog.html" class="art-tag">Mental Health</a>
+      <a href="../blog.html" class="art-tag">Focus</a>
+      <a href="../blog.html" class="art-tag">Social Media</a>
+      <a href="../blog.html" class="art-tag">Intentional Living</a>
+    </div>
+
+    <div class="share-row">
+      <span class="share-label">Share this post:</span>
+      <a href="#" class="share-btn" title="Share on X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a href="#" class="share-btn" title="Share on LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+      <a href="#" class="share-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg></a>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-toc">
+      <div class="toc-title">In This Article</div>
+      <ul class="toc-list">
+        <li><a href="#">What the Attention Economy Actually Is</a></li>
+        <li><a href="#">The Mechanics of the Trap</a></li>
+        <li><a href="#">What It's Actually Costing You</a></li>
+        <li><a href="#">The Way Out</a></li>
+        <li><a href="#">The Deeper Truth</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-author">
+      <div class="sa-label">Written By</div>
+      <div class="sa-row">
+        <div class="sa-av">N</div>
+        <div><div class="sa-name">Namah</div><div class="sa-role">Host &amp; Creator</div></div>
+      </div>
+      <p class="sa-bio">Seeker, speaker, storyteller. I have 200+ conversations about the things that actually matter — work, mind, money, and meaning.</p>
+    </div>
+    <div class="sidebar-related">
+      <div class="sr-title">You Might Also Like</div>
+      <a href="stoic-playbook.html" class="related-item">
+        <div class="ri-thumb ri-t1"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div><div class="ri-title">The Stoic Playbook for Modern Uncertainty</div><div class="ri-meta">Philosophy · 9 min</div></div>
+      </a>
+      <a href="slow-down-speed-up.html" class="related-item">
+        <div class="ri-thumb ri-t2"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div><div class="ri-title">Slow Down to Speed Up: Paradox of Peak Performance</div><div class="ri-meta">Wellness · 7 min</div></div>
+      </a>
+      <a href="5-books-success.html" class="related-item">
+        <div class="ri-thumb ri-t3"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div><div class="ri-title">5 Books That Rewired How I Think About Success</div><div class="ri-meta">Reading · 5 min</div></div>
+      </a>
+    </div>
+  </aside>
+
+</div>
+
+<!-- RELATED POSTS -->
+<section class="related-section">
+  <div class="section-wrap">
+    <span class="section-tag">Keep Reading</span>
+    <h2 class="section-title" style="margin-top:0.3rem;">More From the Blog</h2>
+    <div class="related-grid">
+      <a href="personal-brand.html" class="rel-card">
+        <div class="rel-thumb rc1"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div class="rel-body"><span class="rel-cat">Entrepreneurship</span><div class="rel-title">How to Build a ₹0 Personal Brand That Opens Every Door</div><div class="rel-meta">Mar 15, 2025 · 10 min read</div></div>
+      </a>
+      <a href="stoic-playbook.html" class="rel-card">
+        <div class="rel-thumb rc2"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div class="rel-body"><span class="rel-cat">Philosophy</span><div class="rel-title">The Stoic Playbook for Modern Uncertainty</div><div class="rel-meta">Jan 30, 2025 · 9 min read</div></div>
+      </a>
+      <a href="slow-down-speed-up.html" class="rel-card">
+        <div class="rel-thumb rc3"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg></div>
+        <div class="rel-body"><span class="rel-cat">Wellness</span><div class="rel-title">Slow Down to Speed Up: The Paradox of Peak Performance</div><div class="rel-meta">Feb 10, 2025 · 7 min read</div></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-strip">
+  <div class="nl-left">
+    <div class="nl-kicker">Enjoyed this read?</div>
+    <h3>Get More Essays<br>Like This</h3>
+    <p>Weekly ideas and essays straight to your inbox. No spam, ever.</p>
+  </div>
+  <div class="nl-form">
+    <input type="email" placeholder="your@email.com"/>
+    <button type="button">Subscribe Free →</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="nt-footer">
+  <div class="footer-grid">
+    <div>
+      <a href="../index.html" class="footer-logo">Namah<span>.</span>Talks</a>
+      <p class="footer-desc">Deep conversations and essays on the things that actually matter.</p>
+    </div>
+    <div class="footer-col"><div class="footer-col-title">Explore</div><ul><li><a href="../index.html">Home</a></li><li><a href="../podcast.html">Podcast</a></li><li><a href="../blog.html">Blog</a></li><li><a href="../about.html">About</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-title">Topics</div><ul><li><a href="../blog.html">Productivity</a></li><li><a href="../blog.html">Philosophy</a></li><li><a href="../blog.html">Entrepreneurship</a></li><li><a href="../blog.html">Creativity</a></li></ul></div>
+    <div class="footer-col"><div class="footer-col-title">Connect</div><ul><li><a href="../about.html#guest">Be a Guest</a></li><li><a href="../about.html">Collaborate</a></li><li><a href="../about.html">Contact</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Namah Talks. All rights reserved.</span>
+    <div style="display:flex;gap:1.5rem;"><a href="#">Privacy</a><a href="#">Terms</a></div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
+</script>
+</body>
+</html>
